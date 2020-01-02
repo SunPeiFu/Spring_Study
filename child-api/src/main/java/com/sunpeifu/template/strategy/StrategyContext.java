@@ -14,11 +14,12 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class StrategyContext {
 
+
+    // 注入此map,则会把对应的bean,和策略实现类注入到容器中,k为beanName
     @Autowired
-    private Map<String,Strategy> stringStrategyMap = new ConcurrentHashMap<>();
+    private Map<String,Strategy> stringStrategyMap = new ConcurrentHashMap<String,Strategy>();
 
     // 策略容器,封装每个策略下的具体医院
-    private static Map<String,Strategy> context  = new ConcurrentHashMap<>();
 
     // 根据类型type,返回具体策略bean
     public Strategy getStrategy(String beanName){
