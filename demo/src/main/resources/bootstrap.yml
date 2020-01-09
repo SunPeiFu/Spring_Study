@@ -1,0 +1,27 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: ms-icp-test-feign
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+    consul:
+      host: 192.168.40.11
+      port: 18500
+      discovery:
+        service-name: ms-icp-test-feign
+        tags: 乐约C端远程服务
+        prefer-ip-address: true
+        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+      config:
+        prefix: config
+        default-context: icp-user
+        data-key: data
+        format: yaml
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration,org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration
