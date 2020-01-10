@@ -1,6 +1,9 @@
 server:
   port: 9000
 spring:
+  #面向接口的Api feign组件继承通用Controller层接口,feignClient name重复,就会造成a beanName 已经被定义,启动失败,加入main,allow-beanXX 允许重名的bean,即可解决
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: ms-icp-test-feign
   profiles:

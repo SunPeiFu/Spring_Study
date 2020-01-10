@@ -1,6 +1,6 @@
 package com.sunpeifu.demo.feign;
 
-import com.ms.user.api.server.ChannelControllerApi;
+import com.ms.user.api.server.UserControllerApi;
 import org.springframework.cloud.openfeign.FeignClient;
 
 /**
@@ -8,6 +8,6 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @Author daike
  * @Description
  */
-@FeignClient(name = "ms-icp-user" , url = "http://localhost:8081")
-public interface FeginService extends ChannelControllerApi {
+//@FeignClient(name = "ms-icp-user" , url = "http://localhost:8081")
+public interface FeginService extends UserControllerApi {
 }

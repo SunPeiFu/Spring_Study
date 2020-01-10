@@ -1,4 +1,4 @@
-//package com.sunpeifu.template.strategy;
+package com.sunpeifu.demo.strategy;//package com.sunpeifu.template.strategy;
 //
 //import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.RestController;

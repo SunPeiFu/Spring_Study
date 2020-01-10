@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
@@ -39,11 +41,12 @@ spring:
       max-file-size: 10MB
       max-request-size: 100MB
 
-#  mybatis-plus 配置
+# mybatis-plus 配置
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath*:mapper/*.xml
+# 启动feign调用模式为httpcient,解决get请求传参实体映射为空
 feign:
   httpclient:
     enabled: true

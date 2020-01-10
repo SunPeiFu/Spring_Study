@@ -1,4 +1,4 @@
-//package com.sunpeifu.template.entrust;
+package com.sunpeifu.demo.entrust;//package com.sunpeifu.template.entrust;
 //
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.web.bind.annotation.GetMapping;

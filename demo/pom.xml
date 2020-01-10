@@ -24,9 +24,33 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<!--引入api-->
+<!--		<dependency>-->
+<!--			<groupId>com.ms.user</groupId>-->
+<!--			<artifactId>ms-icp-user-api</artifactId>-->
+<!--			<version>0.0.1-SNAPSHOT</version>-->
+<!--		</dependency>-->
+		<!--代码生成相关-->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.23</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>3.0.6</version>
+		</dependency>
+		<!--代码生成依赖-->
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity-engine-core</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<!--引入provider-->
 		<dependency>
 			<groupId>com.ms.user</groupId>
-			<artifactId>ms-icp-user-api</artifactId>
+			<artifactId>ms-icp-user-provider</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- 服务注册发现 -->
@@ -74,7 +98,8 @@
 			<artifactId>druid</artifactId>
 			<version>1.1.18</version>
 		</dependency>
-		<!--解决feign发送get请求发送实体405-->
+		<!--解决feign发送get请求发送实体405,原因为feign里调用默认用jdk的HttpUrlConnection判断方式为requestbody是否为空,默认
+		get请求没有请求体,所以表面看上去是get,实际还是用的post-->
 		<dependency>
 			<groupId>io.github.openfeign</groupId>
 			<artifactId>feign-httpclient</artifactId>
