@@ -25,11 +25,11 @@ public class MysqlCodeGenerator {
 	/**
 	 * 代码生成的包名
 	 */
-	public static String PACKAGE_NAME = "com.ms.user";
+	public static String PACKAGE_NAME = "com.leyue.admin";
 	/**
 	 * 后台代码生成地址--java
 	 */
-	public static String PACKAGE_DIR = "/Users/sunpeifu/workspace/test-parent";
+	public static String PACKAGE_DIR = "/Users/sunpeifu/leyueHosAdmin";
 	/**
 	 * 前端代码生成地址--vue
 	 */
@@ -37,11 +37,16 @@ public class MysqlCodeGenerator {
 	/**
 	 * 需要去掉的表前缀
 	 */
-	public static String[] TABLE_PREFIX = {""}; //sys_
+	public static String[] TABLE_PREFIX = {"ln_"}; //sys_
+
+	/**
+	 * 需要去掉的字段前缀
+	 */
+	public static String[] FILED_PREFIX = {""};
 	/**
 	 * 需要生成的表名(两者只能取其一)
 	 */
-	public static String[] INCLUDE_TABLES = {"ins_insurance_company"};
+	public static String[] INCLUDE_TABLES = {"ln_treatment_heat_question"};
 	/**
 	 * 需要排除的表名(两者只能取其一)
 	 */
@@ -66,7 +71,7 @@ public class MysqlCodeGenerator {
 		GlobalConfig gc = new GlobalConfig();
 		// 直接生成在工程目录中 
 		/////String projectPath = System.getProperty("user.dir");
-		
+		gc.setServiceName("%sService"); // 去掉接口前面的I
 		gc.setOutputDir(PACKAGE_DIR + "/src/main/java");
 		gc.setAuthor("sunpeifu");
 		gc.setFileOverride(true);
@@ -78,11 +83,11 @@ public class MysqlCodeGenerator {
 
 		// 数据源配置
 		DataSourceConfig dsc = new DataSourceConfig();
-		dsc.setUrl("jdbc:mysql://192.168.40.11:3306/cloud_ins_new1");
+		dsc.setUrl("jdbc:mysql://172.16.0.229:3306/gz_his");
 		// dsc.setSchemaName("public");
 		dsc.setDriverName("com.mysql.cj.jdbc.Driver");
 		dsc.setUsername("root");
-		dsc.setPassword("62E73DDDA0FC");
+		dsc.setPassword("ky123456KY+-)(");
 		mpg.setDataSource(dsc);
 
 		// 包配置
@@ -139,6 +144,7 @@ public class MysqlCodeGenerator {
 		strategy.setEntityLombokModel(true);
 		strategy.setRestControllerStyle(true);
 
+
 		if (HAS_SUPER_ENTITY) {
 			strategy.setSuperControllerClass("com.ebtech.esbubcp.common.system.base.controller.BaseController");
 			strategy.setSuperEntityClass("com.ebtech.esbubcp.common.system.base.entity.BaseEntity");
@@ -159,6 +165,9 @@ public class MysqlCodeGenerator {
 		////strategy.setSuperEntityColumns("id");
 		strategy.setControllerMappingHyphenStyle(true);
 		strategy.setTablePrefix(TABLE_PREFIX);
+//		strategy.setFieldPrefix(FILED_PREFIX);
+//		strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+//		strategy.setNaming(NamingStrategy.underline_to_camel);
 		mpg.setStrategy(strategy);
 		// 选择 freemarker 引擎需要指定如下加，注意 pom 依赖必须有！
 		mpg.setTemplateEngine(new FreemarkerTemplateEngine());
