@@ -71,7 +71,6 @@ public class MysqlCodeGenerator {
 		GlobalConfig gc = new GlobalConfig();
 		// 直接生成在工程目录中 
 		/////String projectPath = System.getProperty("user.dir");
-		
 		gc.setOutputDir(PACKAGE_DIR + "/src/main/java");
 		gc.setAuthor("sunpeifu");
 		gc.setFileOverride(true);

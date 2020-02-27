@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * mysql 代码生成器
  *
- * @author yyhe
- * @since 2019-06-05
+ * @author sunpeifu
+ * @since 2020-02-06
  */
 public class MysqlCodeGenerator {
 	/**
@@ -46,7 +46,7 @@ public class MysqlCodeGenerator {
 	/**
 	 * 需要生成的表名(两者只能取其一)
 	 */
-	public static String[] INCLUDE_TABLES = {"ln_treatment_heat_question"};
+	public static String[] INCLUDE_TABLES = {"ln_treatment_order_operation"};
 	/**
 	 * 需要排除的表名(两者只能取其一)
 	 */

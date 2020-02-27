@@ -4,9 +4,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.40.11:3306/cloud_ins_new1?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mysql://192.168.40.11:3306/gz_his?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false
     username: root
-    password: 62E73DDDA0FC
+    password: ky123456KY+-)(
     initialSize: 10
     minIdle: 10
     maxActive: 20
