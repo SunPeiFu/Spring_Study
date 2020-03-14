@@ -10,4 +10,5 @@ import org.springframework.cloud.openfeign.FeignClient;
  */
 //@FeignClient(name = "ms-icp-user" , url = "http://localhost:8081")
 public interface FeginService extends UserControllerApi {
+
 }
