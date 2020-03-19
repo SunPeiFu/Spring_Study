@@ -51,4 +51,10 @@ public class ThreadLocalController {
         map.put("after", after);
         return map;
     }
+
+    public static void main(String[] args) {
+        String a = "123Y456";
+        int y = a.indexOf("Y");
+        System.out.println(a.substring(0,y));
+    }
 }
