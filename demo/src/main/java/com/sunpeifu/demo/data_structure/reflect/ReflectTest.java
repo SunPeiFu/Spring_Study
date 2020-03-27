@@ -1,32 +1,44 @@
 package com.sunpeifu.demo.data_structure.reflect;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import com.sunpeifu.demo.bean.Product;
-import org.springframework.util.CollectionUtils;
-import sun.security.krb5.internal.PAData;
+import com.sunpeifu.demo.bean.VerifyAmount;
 
-import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.lang.reflect.TypeVariable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 /**
- * 作者:  daike
- * 日期:  2020/3/24
+ * 作者:  sunpeifu
+ * 日期:  2020/3/27
  * 描述:
  */
 public class ReflectTest {
 
     public static void main(String[] args) throws Exception {
-        Product p = new Product();
-        Product data = createData(Product.class);
-        System.out.println(data);
+
+        batchCreaeData(VerifyAmount.class, 10).forEach(verifyAmount -> System.out.println(verifyAmount));
+
+    }
+
+    /***
+     * 传入T 和 需要造的数据量
+     */
+    public static <T> List<T> batchCreaeData(Class<T> clazz, int dataSize) {
+        ArrayList<T> list = new ArrayList<>(dataSize);
+
+        for (int i = 0; i < dataSize; i++) {
+            try {
+                list.add(createData(clazz));
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+        return list;
     }
 
 
@@ -41,56 +53,46 @@ public class ReflectTest {
             int parameterCount = declaredMethod.getParameterCount();
             // 方法名称
             String methodName = declaredMethod.getName();
-            // set开头的方法制造数据
-            // 存储多个参数的随机值
-            List<Object> list = new ArrayList<>();
 
-            Parameter[] parameters = declaredMethod.getParameters();
-            for (Parameter parameter : parameters) {
-                list.add(createDataByClassType(parameter.getType()));
-                System.out.println("参数类型是:" + parameter.getType() + "方法名称是:" + methodName + "  " + "方法参数的长度是:" + parameterCount + " 参数名称:" + parameter.getName());
+            // 造数据,只获取setXXX方法
+            if (methodName.startsWith("set")) {
+                // 存储多个参数的随机值,T一定是Object
+                List<Object> list = new ArrayList<>(declaredMethods.length);
+
+                Parameter[] parameters = declaredMethod.getParameters();
+                for (Parameter parameter : parameters) {
+                    list.add(createDataByClassType(parameter.getType()));
+                    System.out.println("参数类型是:" + parameter.getType() + "方法名称是:" + methodName + "  " + "方法参数的长度是:" + parameterCount + " 参数名称:" + parameter.getName());
+                }
+                // method.invoket() 里面方法是可变参数Object...paramas,如果想传入多个,传入数组,但是必须是Object数组
+                declaredMethod.invoke(t, list.toArray());
+                System.out.println("大的循环中方法名称:" + declaredMethod.getName());
             }
-            declaredMethod.invoke(t, checkDatat(list));
 
-            // TODO method invoke方法,第一个参数为instance实列,第二个为可变参数 , 遇到的问题是方法有多个参数,但是传入一个Object数组,它识别成了一个参数wrong number of arguments
-
-            declaredMethod.invoke(t, (Object[]) list.toArray());
-
-            declaredMethod.invoke(t, list.get(0), list.get(1));
-
-
-            System.out.println("大的循环中方法名称:" + declaredMethod.getName());
         }
         return t;
     }
 
-    public static Object checkDatat(List<Object> list) {
-        if (!CollectionUtils.isEmpty(list)) {
-            if (list.size() == 0) {
-                return list.get(0);
-            } else {
-                Object[] objects = list.toArray();
-                return objects;
-            }
-        }
-        return null;
-    }
 
     public static Object createDataByClassType(Class clazz) {
-
+        // 根据常见类型优先级
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String nowStr = df.format(LocalDateTime.now());
+        Parameter parameter = null;
         if (clazz == String.class) {
-            return UUID.randomUUID().toString();
+            return UUID.randomUUID().toString().replaceAll("-", "");
             // 如果参数类型是String,执行设置数据的方法
         } else if (clazz == Integer.class) {
             return new Random().nextInt(10);
         } else if (clazz == BigDecimal.class) {
             return new BigDecimal((int) (Math.random() * 100 + 1));
         } else if (clazz == Boolean.class) {
-            return clazz.getName().hashCode() % 2 == 0 ? false : true;
-        } else if (clazz == List.class) {
-
+            return clazz.getName().hashCode() % 2 == 0;
+        } else if (clazz == LocalDateTime.class) {
+            return LocalDateTime.parse(nowStr, df);
         }
-        // 后续可以补充 参数为class对象的情况
+
+        // 后续可以补充 参数为List<T> 等等的情况
         return null;
     }
 

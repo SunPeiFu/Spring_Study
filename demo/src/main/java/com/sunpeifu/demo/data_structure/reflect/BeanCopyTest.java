@@ -30,7 +30,6 @@ public class BeanCopyTest {
      *  BeanUtils copy的原理
      */
     public static <T> T beanCopy(Object source, Class<T> target) throws Exception {
-
         T t = target.newInstance();
         // 存储source信息 k 为字段名  v为字段对应的属性值
         Map<String ,Object> sourceValues = Maps.newHashMap();
@@ -39,16 +38,21 @@ public class BeanCopyTest {
             declaredField.setAccessible(true);
             // 字段属性名
             String name = declaredField.getName();
+
+            Class<?> type = declaredField.getType();
             // 字段属性对应的值
             Object sourceValue = declaredField.get(source);
-            sourceValues.put(name,sourceValue);
+            // 所以定义一个key 是fieldName + type即可 ,解决字段名称相同,类型不同
+            String key = name + type;
+            sourceValues.put(key,sourceValue);
         }
         // 获取target的所有字段
         Field[] declaredFields1 = target.getDeclaredFields();
         for (Field field : declaredFields1) {
             // 设置访问权限
             field.setAccessible(true);
-            field.set(t,sourceValues.get(field.getName()));
+            String key = field.getName()+field.getType();
+            field.set(t,sourceValues.get(key));
         }
 
         return t;
