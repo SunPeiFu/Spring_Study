@@ -6,5 +6,4 @@ public interface Doding {
 
     void doSomething(String taskName);
 
-
 }
