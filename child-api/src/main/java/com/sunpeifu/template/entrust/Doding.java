@@ -5,4 +5,6 @@ package com.sunpeifu.template.entrust;
 public interface Doding {
 
     void doSomething(String taskName);
+
+
 }
