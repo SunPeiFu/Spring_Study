@@ -25,11 +25,7 @@ public class TestLambda {
 
     public static void main(String[] args) {
 
-        List<Apple> list = Arrays.asList(new Apple(123), new Apple(null));
-        list = list.stream().filter((Apple a) -> null != a.getWeight())
-                .map
-                .collect(Collectors.toList());
-        System.out.println(list);
+
 
     }
 
